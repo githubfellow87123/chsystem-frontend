@@ -7,6 +7,7 @@ import { PlayerListItemComponent } from './player-list-item/player-list-item.com
 import { PlayerListComponent } from './player-list/player-list.component';
 import { TournamentListItemComponent } from './tournament-list-item/tournament-list-item.component';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,12 @@ import { TournamentListComponent } from './tournament-list/tournament-list.compo
     PlayerListItemComponent,
     PlayerListComponent,
     TournamentListItemComponent,
-    TournamentListComponent
+    TournamentListComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
