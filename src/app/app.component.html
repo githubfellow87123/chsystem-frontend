@@ -1,10 +1,23 @@
-<h1>Chsystem Tournament App</h1>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Chsystem Tournament Application</span>
+</mat-toolbar>
 
-<nav>
-  <ul>
-    <li><a routerLink="/tournaments" routerLinkActive="active">Tournaments</a></li>
-    <li><a routerLink="/players" routerLinkActive="active">Players</a></li>
-  </ul>
-</nav>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" class="sidenav" opened>
+    <div>
+      <button mat-button routerLink="/tournaments" routerLinkActive="active">Tournaments</button>
+    </div>
+    <div>
+      <button mat-button routerLink="/players" routerLinkActive="active">Players</button>
+    </div>
+  </mat-drawer>
 
-<router-outlet></router-outlet>
+
+  <!--  This displays the container specified by the route-->
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
