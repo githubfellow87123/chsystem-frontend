@@ -3,24 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PlayerListItemComponent } from './player-list-item/player-list-item.component';
 import { PlayerListComponent } from './player-list/player-list.component';
-import { TournamentListItemComponent } from './tournament-list-item/tournament-list-item.component';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerListItemComponent,
     PlayerListComponent,
-    TournamentListItemComponent,
     TournamentListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

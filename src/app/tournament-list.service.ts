@@ -29,8 +29,8 @@ export class TournamentListService {
     });
   }
 
-  deleteTournament(tournamenListItem: TournamentListItem): void {
-    const index = this.tournaments.indexOf(tournamenListItem);
+  deleteTournament(id: string): void {
+    const index = this.tournaments.findIndex(tournament => tournament.id === id);
     this.tournaments.splice(index, 1);
   }
 }

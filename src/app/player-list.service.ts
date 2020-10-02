@@ -24,9 +24,9 @@ export class PlayerListService {
     });
   }
 
-  deletePlayer(playerListItem: PlayerListItem): void {
-    const playerIndex = this.players.indexOf(playerListItem);
-    this.players.splice(playerIndex, 1);
+  deletePlayer(id: string): void {
+    const index = this.players.findIndex(player => player.id === id);
+    this.players.splice(index, 1);
   }
 }
 
