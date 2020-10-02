@@ -1,0 +1,8 @@
+<h1>Tournaments</h1>
+
+<div *ngFor="let tournament of tournamentListService.tournaments">
+  <app-tournament-list-item [tournamentListItem]="tournament"></app-tournament-list-item>
+</div>
+
+<button (click)="addTournament()">Add Tournament</button>
+

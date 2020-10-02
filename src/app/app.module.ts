@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlayerListItemComponent } from './player-list-item/player-list-item.component';
 import { PlayerListComponent } from './player-list/player-list.component';
+import { TournamentListItemComponent } from './tournament-list-item/tournament-list-item.component';
+import { TournamentListComponent } from './tournament-list/tournament-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayerListItemComponent,
-    PlayerListComponent
+    PlayerListComponent,
+    TournamentListItemComponent,
+    TournamentListComponent
   ],
   imports: [
     BrowserModule,

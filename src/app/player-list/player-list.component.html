@@ -1,7 +1,7 @@
 <h1>Players</h1>
 
 <div *ngFor="let player of playerListService.players">
-  <app-player-list-item [playerListItem]=player>{{player.name}}</app-player-list-item>
+  <app-player-list-item [playerListItem]=player></app-player-list-item>
 </div>
 
 <button (click)="addPlayer()">Add Player</button>
