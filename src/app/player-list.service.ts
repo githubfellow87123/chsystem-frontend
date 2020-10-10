@@ -1,20 +1,22 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerListService {
+
+  // TODO This url should be defined somewhere else in a unique place
+  private backendPlayersUrl = 'http://localhost:8080/players';
+
   public players: Array<PlayerListItem> = [];
 
-  constructor() {
-    this.players.push({
-      id: 'eec7aaa9-9bbc-4781-bae3-399bef66ebf1',
-      name: 'David'
-    });
-    this.players.push({
-      id: '9dfe5f60-b3fc-4cd9-95d2-9e9bbdab67b4',
-      name: 'Chris'
-    });
+  constructor(private httpClient: HttpClient) {
+  }
+
+  getPlayers(): Observable<Array<PlayerListItem>> {
+    return this.httpClient.get<Array<PlayerListItem>>(this.backendPlayersUrl);
   }
 
   addPlayer(): void {
@@ -30,9 +32,8 @@ export class PlayerListService {
   }
 }
 
-
 export interface PlayerListItem {
   id: string;
   name: string;
+  createdAt?: Date;
 }
-

@@ -23,6 +23,11 @@ export class PlayerListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.playerListService.getPlayers()
+      .subscribe(data => {
+        this.dataSource.data = data;
+      });
   }
 
   addPlayer(): void {
