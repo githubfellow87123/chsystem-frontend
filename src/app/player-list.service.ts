@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,7 @@ import {Observable} from 'rxjs';
 export class PlayerListService {
 
   // TODO This url should be defined somewhere else in a unique place
-  private backendPlayersUrl = 'http://localhost:8080/players';
-
-  public players: Array<PlayerListItem> = [];
+  private backendPlayersUrl = environment.backendBaseUrl + '/players';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -19,21 +18,23 @@ export class PlayerListService {
     return this.httpClient.get<Array<PlayerListItem>>(this.backendPlayersUrl);
   }
 
-  addPlayer(): void {
-    this.players.push({
-      id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-      name: 'Ernst'
-    });
+  addPlayer(playerModel: PlayerModel): Observable<PlayerListItem> {
+    return this.httpClient.post<PlayerListItem>(this.backendPlayersUrl, playerModel);
   }
 
-  deletePlayer(id: string): void {
-    const index = this.players.findIndex(player => player.id === id);
-    this.players.splice(index, 1);
+  deletePlayer(id: string): Observable<{}> {
+    return this.httpClient.delete(this.backendPlayersUrl + '/' + id);
   }
 }
 
 export interface PlayerListItem {
   id: string;
+  name: string;
+  createdAt?: Date;
+}
+
+export interface PlayerModel {
+  id?: string;
   name: string;
   createdAt?: Date;
 }
