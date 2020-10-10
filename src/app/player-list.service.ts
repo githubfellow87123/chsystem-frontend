@@ -8,7 +8,6 @@ import {environment} from '../environments/environment';
 })
 export class PlayerListService {
 
-  // TODO This url should be defined somewhere else in a unique place
   private backendPlayersUrl = environment.backendBaseUrl + '/players';
 
   constructor(private httpClient: HttpClient) {
