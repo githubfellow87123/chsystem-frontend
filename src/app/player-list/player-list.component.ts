@@ -35,19 +35,17 @@ export class PlayerListComponent implements AfterViewInit {
 
     this.playerService.addPlayer(playerModel)
       .subscribe(player => {
-        const data = Array.from(this.dataSource.data);
-        data.push(player);
-        this.dataSource.data = data;
+        this.dataSource.data.push(player);
+        this.dataSource.data = [...this.dataSource.data];
       });
   }
 
   deletePlayer(id: string): void {
     this.playerService.deletePlayer(id)
       .subscribe(() => {
-        const data = Array.from(this.dataSource.data);
-        const index = data.findIndex(player => player.id === id);
-        data.splice(index, 1);
-        this.dataSource.data = data;
+        const index = this.dataSource.data.findIndex(player => player.id === id);
+        this.dataSource.data.splice(index, 1);
+        this.dataSource.data = [...this.dataSource.data];
       });
   }
 }

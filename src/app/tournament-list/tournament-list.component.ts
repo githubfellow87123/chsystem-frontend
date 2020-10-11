@@ -35,19 +35,17 @@ export class TournamentListComponent implements AfterViewInit {
 
     this.tournamentService.addTournament(tournamentModel)
       .subscribe(tournament => {
-        const data = Array.from(this.dataSource.data);
-        data.push(tournament);
-        this.dataSource.data = data;
+        this.dataSource.data.push(tournament);
+        this.dataSource.data = [...this.dataSource.data];
       });
   }
 
   deleteTournament(tournamentId: string): void {
     this.tournamentService.deleteTournament(tournamentId)
       .subscribe(() => {
-        const data = Array.from(this.dataSource.data);
-        const index = data.findIndex(tournament => tournament.id === tournamentId);
-        data.splice(index, 1);
-        this.dataSource.data = data;
+        const index = this.dataSource.data.findIndex(tournament => tournament.id === tournamentId);
+        this.dataSource.data.splice(index, 1);
+        this.dataSource.data = [...this.dataSource.data];
       });
   }
 }
