@@ -6,8 +6,10 @@
 </mat-toolbar>
 
 <mat-drawer-container autosize>
-  <!--  TODO The drawer does not work on the main page -->
   <mat-drawer #drawer mode="side" class="sidenav" opened>
+    <div>
+      <button mat-button routerLink="" routerLinkActive="active">Home</button>
+    </div>
     <div>
       <button mat-button routerLink="/tournaments" routerLinkActive="active">Tournaments</button>
     </div>
@@ -15,7 +17,6 @@
       <button mat-button routerLink="/players" routerLinkActive="active">Players</button>
     </div>
   </mat-drawer>
-
 
   <!--  This displays the container specified by the route-->
   <div class="container">
