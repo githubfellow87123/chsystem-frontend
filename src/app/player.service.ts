@@ -6,19 +6,19 @@ import {environment} from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerListService {
+export class PlayerService {
 
   private backendPlayersUrl = environment.backendBaseUrl + '/players';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getPlayers(): Observable<Array<PlayerListItem>> {
-    return this.httpClient.get<Array<PlayerListItem>>(this.backendPlayersUrl);
+  getPlayers(): Observable<Array<Player>> {
+    return this.httpClient.get<Array<Player>>(this.backendPlayersUrl);
   }
 
-  addPlayer(playerModel: PlayerModel): Observable<PlayerListItem> {
-    return this.httpClient.post<PlayerListItem>(this.backendPlayersUrl, playerModel);
+  addPlayer(playerModel: PlayerModel): Observable<Player> {
+    return this.httpClient.post<Player>(this.backendPlayersUrl, playerModel);
   }
 
   deletePlayer(id: string): Observable<{}> {
@@ -26,10 +26,10 @@ export class PlayerListService {
   }
 }
 
-export interface PlayerListItem {
+export interface Player {
   id: string;
   name: string;
-  createdAt?: Date;
+  createdAt: Date;
 }
 
 export interface PlayerModel {

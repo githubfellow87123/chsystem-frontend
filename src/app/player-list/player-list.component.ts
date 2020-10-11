@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {PlayerListItem, PlayerListService, PlayerModel} from '../player-list.service';
+import {Player, PlayerService, PlayerModel} from '../player.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -12,19 +12,19 @@ import {MatSort} from '@angular/material/sort';
 export class PlayerListComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['id', 'name', 'delete'];
-  dataSource = new MatTableDataSource<PlayerListItem>([]);
+  dataSource = new MatTableDataSource<Player>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public playerListService: PlayerListService) {
+  constructor(public playerService: PlayerService) {
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.playerListService.getPlayers()
+    this.playerService.getPlayers()
       .subscribe(data => this.dataSource.data = data);
   }
 
@@ -33,7 +33,7 @@ export class PlayerListComponent implements AfterViewInit {
       name: 'Ernst'
     };
 
-    this.playerListService.addPlayer(playerModel)
+    this.playerService.addPlayer(playerModel)
       .subscribe(player => {
         const data = Array.from(this.dataSource.data);
         data.push(player);
@@ -42,7 +42,7 @@ export class PlayerListComponent implements AfterViewInit {
   }
 
   deletePlayer(id: string): void {
-    this.playerListService.deletePlayer(id)
+    this.playerService.deletePlayer(id)
       .subscribe(() => {
         const data = Array.from(this.dataSource.data);
         const index = data.findIndex(player => player.id === id);
