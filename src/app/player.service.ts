@@ -21,8 +21,8 @@ export class PlayerService {
     return this.httpClient.post<Player>(this.backendPlayersUrl, playerModel);
   }
 
-  deletePlayer(id: string): Observable<{}> {
-    return this.httpClient.delete(this.backendPlayersUrl + '/' + id);
+  deletePlayer(playerId: string): Observable<{}> {
+    return this.httpClient.delete(this.backendPlayersUrl + '/' + playerId);
   }
 }
 
