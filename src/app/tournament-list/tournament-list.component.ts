@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {TournamentListService} from '../tournament-list.service';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {TournamentService} from '../tournament.service';
 
 @Component({
   selector: 'app-tournament-list',
@@ -12,12 +12,12 @@ import {MatSort} from '@angular/material/sort';
 export class TournamentListComponent implements AfterViewInit{
 
   displayedColumns: string[] = ['id', 'date', 'state', 'delete'];
-  dataSource = new MatTableDataSource(this.tournamentListService.tournaments);
+  dataSource = new MatTableDataSource(this.tournamentService.tournaments);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public tournamentListService: TournamentListService) {
+  constructor(public tournamentService: TournamentService) {
   }
 
   ngAfterViewInit(): void {
@@ -26,12 +26,12 @@ export class TournamentListComponent implements AfterViewInit{
   }
 
   addTournament(): void {
-    this.tournamentListService.addTournament();
-    this.dataSource.data = this.tournamentListService.tournaments;
+    this.tournamentService.addTournament();
+    this.dataSource.data = this.tournamentService.tournaments;
   }
 
   deleteTournament(id: string): void {
-    this.tournamentListService.deleteTournament(id);
-    this.dataSource.data = this.tournamentListService.tournaments;
+    this.tournamentService.deleteTournament(id);
+    this.dataSource.data = this.tournamentService.tournaments;
   }
 }

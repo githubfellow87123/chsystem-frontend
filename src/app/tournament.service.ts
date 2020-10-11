@@ -4,8 +4,8 @@ import {Player} from './player.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TournamentListService {
-  public tournaments: Array<TournamentListItem> = [];
+export class TournamentService {
+  public tournaments: Array<Tournament> = [];
 
   constructor() {
     this.tournaments.push({
@@ -35,10 +35,16 @@ export class TournamentListService {
   }
 }
 
-export interface TournamentListItem {
+export interface Tournament {
   id: string;
   date: Date;
   state: TournamentState;
+}
+
+export interface TournamentModel {
+  id?: string;
+  date: Date;
+  state?: TournamentState;
 }
 
 enum TournamentState {
