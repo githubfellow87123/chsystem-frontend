@@ -1,15 +1,9 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TournamentModel, TournamentService } from '../tournament.service';
-import { MatDatepicker } from '@angular/material/datepicker';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-list',
@@ -25,7 +19,10 @@ export class TournamentListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public tournamentService: TournamentService) {}
+  constructor(
+    public tournamentService: TournamentService,
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -62,5 +59,9 @@ export class TournamentListComponent implements AfterViewInit {
       this.dataSource.data.splice(index, 1);
       this.dataSource.data = [...this.dataSource.data];
     });
+  }
+
+  view(id: string): void {
+    this.router.navigateByUrl(this.router.url + '/' + id);
   }
 }
