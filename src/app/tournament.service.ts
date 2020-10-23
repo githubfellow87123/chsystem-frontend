@@ -1,28 +1,31 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TournamentService {
-
   private backendTournamentsUrl = environment.backendBaseUrl + '/tournaments';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getTournaments(): Observable<Array<Tournament>> {
     return this.httpClient.get<Array<Tournament>>(this.backendTournamentsUrl);
   }
 
   addTournament(tournamentModel: TournamentModel): Observable<Tournament> {
-    return this.httpClient.post<Tournament>(this.backendTournamentsUrl, tournamentModel);
+    return this.httpClient.post<Tournament>(
+      this.backendTournamentsUrl,
+      tournamentModel
+    );
   }
 
   deleteTournament(tournamentId: string): Observable<{}> {
-    return this.httpClient.delete(this.backendTournamentsUrl + '/' + tournamentId);
+    return this.httpClient.delete(
+      this.backendTournamentsUrl + '/' + tournamentId
+    );
   }
 }
 
@@ -39,5 +42,7 @@ export interface TournamentModel {
 }
 
 enum TournamentState {
-  INITIALIZING = 'Initializing', IN_PROGRESS = 'In Progress', DONE = 'Done'
+  INITIALIZING = 'Initializing',
+  IN_PROGRESS = 'In Progress',
+  DONE = 'Done',
 }
