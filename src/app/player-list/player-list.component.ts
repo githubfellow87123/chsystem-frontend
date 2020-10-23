@@ -11,6 +11,8 @@ import {MatSort} from '@angular/material/sort';
 })
 export class PlayerListComponent implements AfterViewInit {
 
+  currentPlayerNameInput = '';
+
   displayedColumns: string[] = ['id', 'name', 'delete'];
   dataSource = new MatTableDataSource<Player>([]);
 
@@ -28,15 +30,16 @@ export class PlayerListComponent implements AfterViewInit {
       .subscribe(data => this.dataSource.data = data);
   }
 
-  addPlayer(): void {
+  addPlayer(playerName: string): void {
     const playerModel: PlayerModel = {
-      name: 'Ernst'
+      name: playerName
     };
 
     this.playerService.addPlayer(playerModel)
       .subscribe(player => {
         this.dataSource.data.push(player);
         this.dataSource.data = [...this.dataSource.data];
+        this.currentPlayerNameInput = '';
       });
   }
 

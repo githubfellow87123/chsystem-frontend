@@ -9,6 +9,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   exports: [
@@ -20,7 +21,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatSortModule,
     MatToolbarModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatInputModule,
   ]
 })
 export class MaterialModule {
