@@ -39,4 +39,17 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
 
-<button mat-raised-button (click)="addTournament()">Add Tournament</button>
+<mat-form-field appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [(ngModel)]="currentTournamentDate"
+  />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<button mat-raised-button (click)="addTournament(currentTournamentDate)">
+  Add Tournament
+</button>

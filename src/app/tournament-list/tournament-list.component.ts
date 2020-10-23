@@ -1,8 +1,15 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TournamentModel, TournamentService } from '../tournament.service';
+import { MatDatepicker } from '@angular/material/datepicker';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tournament-list',
@@ -10,6 +17,8 @@ import { TournamentModel, TournamentService } from '../tournament.service';
   styleUrls: ['./tournament-list.component.scss'],
 })
 export class TournamentListComponent implements AfterViewInit {
+  currentTournamentDate = new Date();
+
   displayedColumns: string[] = ['id', 'date', 'state', 'delete'];
   dataSource = new MatTableDataSource([]);
 
@@ -27,9 +36,14 @@ export class TournamentListComponent implements AfterViewInit {
       .subscribe((tournaments) => (this.dataSource.data = tournaments));
   }
 
-  addTournament(): void {
+  addTournament(date: Date): void {
+    // TODO There seems to be something wrong with the time zone of the date
+    // Setting the hours of the Date is a hack to make sure we don't skip a day
+    // Actually a number is passed here and not a date
+    const newDate = new Date(date);
+    newDate.setHours(10);
     const tournamentModel: TournamentModel = {
-      date: new Date('2021-12-27'),
+      date: newDate,
     };
 
     this.tournamentService

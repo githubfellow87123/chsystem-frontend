@@ -10,6 +10,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   exports: [
@@ -23,6 +26,9 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatSidenavModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
   ],
 })
 export class MaterialModule {}
