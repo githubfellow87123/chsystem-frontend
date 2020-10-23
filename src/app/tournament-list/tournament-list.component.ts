@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 export class TournamentListComponent implements AfterViewInit {
   currentTournamentDate = new Date();
 
-  displayedColumns: string[] = ['id', 'date', 'state', 'delete'];
+  displayedColumns: string[] = ['id', 'date', 'state', 'view', 'delete'];
   dataSource = new MatTableDataSource([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -19,6 +19,19 @@
       <td mat-cell *matCellDef="let tournament">{{ tournament.state }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tournament">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="deleteTournament(tournament.id)"
+        >
+          View
+        </button>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let tournament">

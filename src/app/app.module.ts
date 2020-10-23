@@ -21,6 +21,7 @@ import {
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
+import { TournamentComponent } from './tournament/tournament.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {
     PlayerListComponent,
     TournamentListComponent,
     HomeComponent,
+    TournamentComponent,
   ],
   imports: [
     BrowserModule,
