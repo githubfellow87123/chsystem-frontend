@@ -3,6 +3,8 @@
     <app-tournament-overview [tournament]="tournament">
     </app-tournament-overview>
   </mat-tab>
-  <mat-tab label="Players">TBA</mat-tab>
+  <mat-tab label="Players">
+    <app-tournament-players [tournamentId]="id"></app-tournament-players>
+  </mat-tab>
   <mat-tab label="Standings">TBA</mat-tab>
 </mat-tab-group>

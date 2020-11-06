@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Player } from './player.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,12 @@ export class TournamentService {
   deleteTournament(tournamentId: string): Observable<{}> {
     return this.httpClient.delete(
       this.backendTournamentsUrl + '/' + tournamentId
+    );
+  }
+
+  getPlayersOfTournament(tournamentId: string): Observable<Array<Player>> {
+    return this.httpClient.get<Array<Player>>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/' + 'players'
     );
   }
 }

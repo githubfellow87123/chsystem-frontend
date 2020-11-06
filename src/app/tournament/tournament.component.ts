@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TournamentModel, TournamentService } from '../tournament.service';
+import { Player } from '../player.service';
 
 @Component({
   selector: 'app-tournament',

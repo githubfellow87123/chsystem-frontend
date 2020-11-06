@@ -23,6 +23,7 @@ import {
 } from '@angular/material-moment-adapter';
 import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentOverviewComponent } from './tournament/tournament-overview/tournament-overview.component';
+import { TournamentPlayersComponent } from './tournament/tournament-players/tournament-players.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TournamentOverviewComponent } from './tournament/tournament-overview/to
     HomeComponent,
     TournamentComponent,
     TournamentOverviewComponent,
+    TournamentPlayersComponent,
   ],
   imports: [
     BrowserModule,

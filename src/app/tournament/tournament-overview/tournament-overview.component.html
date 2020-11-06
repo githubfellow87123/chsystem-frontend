@@ -1,4 +1,4 @@
-<mat-list role="list">
+<mat-list role="list" *ngIf="tournament != null">
   <mat-list-item role="listitem">
     Date: {{ tournament.date | date: "yyyy-MM-dd" }}
   </mat-list-item>

@@ -1,0 +1,11 @@
+<h2>Add/Remove Players from the Tournament</h2>
+
+<h3>All Players</h3>
+<mat-list role="list" *ngFor="let player of playersNotInTournament">
+  <mat-list-item role="listitem">{{ player.name }}</mat-list-item>
+</mat-list>
+
+<h3>Players In Tournament</h3>
+<mat-list role="list" *ngFor="let player of playersInTournament">
+  <mat-list-item role="listitem">{{ player.name }}</mat-list-item>
+</mat-list>
