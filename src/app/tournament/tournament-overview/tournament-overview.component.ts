@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TournamentModel } from '../../tournament.service';
+import { TournamentModel, TournamentService } from '../../tournament.service';
 
 @Component({
   selector: 'app-tournament-overview',
@@ -10,7 +10,13 @@ export class TournamentOverviewComponent implements OnInit {
   @Input()
   tournament: TournamentModel;
 
-  constructor() {}
+  constructor(private tournamentService: TournamentService) {}
 
   ngOnInit(): void {}
+
+  startTournament(tournamentId: string): void {
+    this.tournamentService
+      .startTournament(tournamentId)
+      .subscribe((tournament) => (this.tournament = tournament));
+  }
 }

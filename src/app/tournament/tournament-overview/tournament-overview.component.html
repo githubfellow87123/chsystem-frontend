@@ -7,3 +7,11 @@
     Round: {{ tournament.roundIndex }}
   </mat-list-item>
 </mat-list>
+
+<button
+  mat-raised-button
+  color="primary"
+  (click)="startTournament(tournament.id)"
+>
+  Start
+</button>

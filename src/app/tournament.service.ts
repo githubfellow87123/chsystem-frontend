@@ -69,6 +69,13 @@ export class TournamentService {
       { body: playerToTournamentModel }
     );
   }
+
+  startTournament(tournamentId: string): Observable<Tournament> {
+    return this.httpClient.put<Tournament>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/start',
+      null
+    );
+  }
 }
 
 export interface Tournament {
