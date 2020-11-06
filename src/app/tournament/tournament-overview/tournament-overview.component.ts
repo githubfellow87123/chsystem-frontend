@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TournamentModel, TournamentService } from '../../tournament.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-overview',
@@ -11,6 +10,8 @@ export class TournamentOverviewComponent implements OnInit {
   @Input()
   tournament: TournamentModel;
 
+  @Output() tournamentChangeEvent = new EventEmitter<TournamentModel>();
+
   constructor(private tournamentService: TournamentService) {}
 
   ngOnInit(): void {}
@@ -20,6 +21,7 @@ export class TournamentOverviewComponent implements OnInit {
       .startTournament(tournamentId)
       .subscribe((tournament) => {
         this.tournament = tournament;
+        this.tournamentChangeEvent.emit(tournament);
       });
   }
 }

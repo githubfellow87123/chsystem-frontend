@@ -97,10 +97,10 @@ export interface TournamentModel {
   roundIndex?: number;
 }
 
-enum TournamentState {
-  INITIALIZING = 'Initializing',
-  IN_PROGRESS = 'In Progress',
-  DONE = 'Done',
+export enum TournamentState {
+  INITIALIZING = 'INITIALIZING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
 }
 
 export interface PlayerToTournamentModel {

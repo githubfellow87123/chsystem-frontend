@@ -1,10 +1,13 @@
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="Overview">
-    <app-tournament-overview [tournament]="tournament">
+    <app-tournament-overview
+      [tournament]="tournament"
+      (tournamentChangeEvent)="onTournamentChangedEvent($event)"
+    >
     </app-tournament-overview>
   </mat-tab>
   <mat-tab label="Players">
-    <app-tournament-players [tournamentId]="id"></app-tournament-players>
+    <app-tournament-players [tournament]="tournament"></app-tournament-players>
   </mat-tab>
   <mat-tab label="Standings">TBA</mat-tab>
 </mat-tab-group>

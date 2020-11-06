@@ -1,68 +1,72 @@
-<h2>Add Players to Tournament</h2>
+<div *ngIf="tournament != null">
+  <h2>Add Players to Tournament</h2>
 
-<form class="example-form" (ngSubmit)="addPlayerToTournament()">
-  <mat-form-field class="example-full-width">
-    <input
-      type="text"
-      placeholder="Select Player"
-      aria-label="playerName"
-      matInput
-      [formControl]="playersNotInTournamentFormControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option
-        *ngFor="let playerName of filteredPlayersNotInTournamentOptions | async"
-        [value]="playerName"
-      >
-        {{ playerName }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <form class="example-form" (ngSubmit)="addPlayerToTournament()">
+    <mat-form-field class="example-full-width">
+      <input
+        type="text"
+        placeholder="Select Player"
+        aria-label="playerName"
+        matInput
+        [formControl]="playersNotInTournamentFormControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="
+            let playerName of filteredPlayersNotInTournamentOptions | async
+          "
+          [value]="playerName"
+        >
+          {{ playerName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 
-  <button mat-raised-button type="submit" color="primary">Add</button>
-</form>
+    <button mat-raised-button type="submit" color="primary">Add</button>
+  </form>
 
-<h2>Players In Tournament</h2>
+  <h2>Players In Tournament</h2>
 
-<table mat-table [dataSource]="playersInTournament" class="mat-elevation-z8">
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Num.</th>
-    <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}.</td>
-  </ng-container>
+  <table mat-table [dataSource]="playersInTournament" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Num.</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}.</td>
+    </ng-container>
 
-  <ng-container matColumnDef="name">
-    <td mat-cell *matCellDef="let player">{{ player.name }}</td>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <td mat-cell *matCellDef="let player">{{ player.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="delete">
-    <td mat-cell *matCellDef="let player">
-      <button
-        mat-mini-fab
-        color="warn"
-        (click)="removePlayerFromTournament(player)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="delete">
+      <td mat-cell *matCellDef="let player">
+        <button
+          mat-mini-fab
+          color="warn"
+          (click)="removePlayerFromTournament(player)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-  <tr
-    mat-row
-    *matRowDef="let row; columns: ['position', 'name', 'delete']"
-  ></tr>
-</table>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['position', 'name', 'delete']"
+    ></tr>
+  </table>
 
-<div
-  *ngIf="
-    playersOrderedBySeatingOrder != null &&
-    playersOrderedBySeatingOrder.length > 0
-  "
->
-  <h2>Seating Order</h2>
-  <mat-list role="list" *ngFor="let player of playersOrderedBySeatingOrder">
-    <mat-list-item role="listitem">
-      {{ player.name }}
-    </mat-list-item>
-  </mat-list>
+  <div
+    *ngIf="
+      playersOrderedBySeatingOrder != null &&
+      playersOrderedBySeatingOrder.length > 0
+    "
+  >
+    <h2>Seating Order</h2>
+    <mat-list role="list" *ngFor="let player of playersOrderedBySeatingOrder">
+      <mat-list-item role="listitem">
+        {{ player.name }}
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>

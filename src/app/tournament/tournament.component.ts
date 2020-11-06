@@ -25,4 +25,8 @@ export class TournamentComponent implements OnInit {
         .subscribe((tournament) => (this.tournament = tournament));
     });
   }
+
+  onTournamentChangedEvent(tournamentModel: TournamentModel): void {
+    this.tournament = tournamentModel;
+  }
 }
