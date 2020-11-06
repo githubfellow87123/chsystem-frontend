@@ -20,11 +20,22 @@ export class TournamentPlayersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tournamentService
-      .getPlayersOfTournament(this.tournamentId)
-      .subscribe((players) => (this.playersInTournament = players));
-    this.playerService
-      .getPlayers()
-      .subscribe((players) => (this.playersNotInTournament = players));
+    this.playerService.getPlayers().subscribe((allPlayers) => {
+      this.playersNotInTournament = allPlayers;
+      this.tournamentService
+        .getPlayersOfTournament(this.tournamentId)
+        .subscribe((playersInTournament) => {
+          this.playersInTournament = playersInTournament;
+          this.removePlayersFromPlayersNotInTournamentd(playersInTournament);
+        });
+    });
+  }
+
+  private removePlayersFromPlayersNotInTournamentd(players: Player[]): void {
+    for (const playerInTournament of players) {
+      this.playersNotInTournament = this.playersNotInTournament.filter(
+        (player) => player.id !== playerInTournament.id
+      );
+    }
   }
 }
