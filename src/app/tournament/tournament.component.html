@@ -1,3 +1,4 @@
 <h1>Tournament Overview</h1>
-<h2>Date: 01.01.2020</h2>
-<p>This is the overview page of a tournament {{ id }}</p>
+<h2>Date: {{ tournament.date | date: "yyyy-MM-dd" }}</h2>
+<p>State: {{ tournament.state }}</p>
+<p>Round: {{ tournament.roundIndex }}</p>

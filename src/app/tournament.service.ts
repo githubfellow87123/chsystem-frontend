@@ -15,6 +15,12 @@ export class TournamentService {
     return this.httpClient.get<Array<Tournament>>(this.backendTournamentsUrl);
   }
 
+  getTournament(tournamentId: string): Observable<Tournament> {
+    return this.httpClient.get<Tournament>(
+      this.backendTournamentsUrl + '/' + tournamentId
+    );
+  }
+
   addTournament(tournamentModel: TournamentModel): Observable<Tournament> {
     return this.httpClient.post<Tournament>(
       this.backendTournamentsUrl,
@@ -39,6 +45,7 @@ export interface TournamentModel {
   id?: string;
   date: Date;
   state?: TournamentState;
+  roundIndex?: number;
 }
 
 enum TournamentState {
