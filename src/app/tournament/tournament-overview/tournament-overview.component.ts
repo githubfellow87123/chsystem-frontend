@@ -24,4 +24,13 @@ export class TournamentOverviewComponent implements OnInit {
         this.tournamentChangeEvent.emit(tournament);
       });
   }
+
+  startNextRound(tournamentId: string): void {
+    this.tournamentService
+      .startNextRound(tournamentId)
+      .subscribe((tournament) => {
+        this.tournament = tournament;
+        this.tournamentChangeEvent.emit(tournament);
+      });
+  }
 }

@@ -77,6 +77,13 @@ export class TournamentService {
     );
   }
 
+  startNextRound(tournamentId: string): Observable<Tournament> {
+    return this.httpClient.post<Tournament>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/nextRound',
+      null
+    );
+  }
+
   getSeatingOrder(tournamentId: string): Observable<Player[]> {
     return this.httpClient.get<Player[]>(
       this.backendTournamentsUrl + '/' + tournamentId + '/players/seatingOrder'
