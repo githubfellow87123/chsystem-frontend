@@ -1,4 +1,8 @@
-<h1>Tournament Overview</h1>
-<h2>Date: {{ tournament.date | date: "yyyy-MM-dd" }}</h2>
-<p>State: {{ tournament.state }}</p>
-<p>Round: {{ tournament.roundIndex }}</p>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Overview">
+    <app-tournament-overview [tournament]="tournament">
+    </app-tournament-overview>
+  </mat-tab>
+  <mat-tab label="Players">TBA</mat-tab>
+  <mat-tab label="Standings">TBA</mat-tab>
+</mat-tab-group>
