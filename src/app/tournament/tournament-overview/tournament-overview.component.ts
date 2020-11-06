@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TournamentModel, TournamentService } from '../../tournament.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-overview',
@@ -17,6 +18,8 @@ export class TournamentOverviewComponent implements OnInit {
   startTournament(tournamentId: string): void {
     this.tournamentService
       .startTournament(tournamentId)
-      .subscribe((tournament) => (this.tournament = tournament));
+      .subscribe((tournament) => {
+        this.tournament = tournament;
+      });
   }
 }

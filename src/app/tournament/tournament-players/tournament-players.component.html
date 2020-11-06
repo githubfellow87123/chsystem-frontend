@@ -52,3 +52,17 @@
     *matRowDef="let row; columns: ['position', 'name', 'delete']"
   ></tr>
 </table>
+
+<div
+  *ngIf="
+    playersOrderedBySeatingOrder != null &&
+    playersOrderedBySeatingOrder.length > 0
+  "
+>
+  <h2>Seating Order</h2>
+  <mat-list role="list" *ngFor="let player of playersOrderedBySeatingOrder">
+    <mat-list-item role="listitem">
+      {{ player.name }}
+    </mat-list-item>
+  </mat-list>
+</div>

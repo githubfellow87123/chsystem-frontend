@@ -16,6 +16,8 @@ export class TournamentPlayersComponent implements OnInit {
 
   playersInTournament: Player[];
   playersNotInTournament: Player[];
+  // TODO this won't be filled when the tournament is started, you have to reload the page
+  playersOrderedBySeatingOrder: Player[];
 
   playersNotInTournamentFormControl = new FormControl();
   filteredPlayersNotInTournamentOptions: Observable<string[]>;
@@ -40,6 +42,10 @@ export class TournamentPlayersComponent implements OnInit {
           );
         });
     });
+
+    this.tournamentService
+      .getSeatingOrder(this.tournamentId)
+      .subscribe((players) => (this.playersOrderedBySeatingOrder = players));
   }
 
   private removePlayersFromPlayersNotInTournament(players: Player[]): void {

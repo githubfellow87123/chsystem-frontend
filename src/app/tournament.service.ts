@@ -76,6 +76,12 @@ export class TournamentService {
       null
     );
   }
+
+  getSeatingOrder(tournamentId: string): Observable<Player[]> {
+    return this.httpClient.get<Player[]>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/players/seatingOrder'
+    );
+  }
 }
 
 export interface Tournament {
