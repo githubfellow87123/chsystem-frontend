@@ -1,11 +1,29 @@
-<h2>Add/Remove Players from the Tournament</h2>
+<h2>Add Players to Tournament</h2>
 
-<h3>Players Not in Tournament</h3>
-<mat-list role="list" *ngFor="let player of playersNotInTournament">
-  <mat-list-item role="listitem">{{ player.name }}</mat-list-item>
-</mat-list>
+<form class="example-form" (ngSubmit)="addPlayersToTournament()">
+  <mat-form-field class="example-full-width">
+    <input
+      type="text"
+      placeholder="Select Player"
+      aria-label="playerName"
+      matInput
+      [formControl]="playersNotInTournamentFormControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let playerName of filteredPlayersNotInTournamentOptions | async"
+        [value]="playerName"
+      >
+        {{ playerName }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-<h3>Players In Tournament</h3>
+  <button mat-raised-button type="submit" color="primary">Add</button>
+</form>
+
+<h2>Players In Tournament</h2>
 <mat-list role="list" *ngFor="let player of playersInTournament">
   <mat-list-item role="listitem">{{ player.name }}</mat-list-item>
 </mat-list>

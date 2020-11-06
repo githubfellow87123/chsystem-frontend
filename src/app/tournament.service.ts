@@ -37,7 +37,21 @@ export class TournamentService {
 
   getPlayersOfTournament(tournamentId: string): Observable<Array<Player>> {
     return this.httpClient.get<Array<Player>>(
-      this.backendTournamentsUrl + '/' + tournamentId + '/' + 'players'
+      this.backendTournamentsUrl + '/' + tournamentId + '/players'
+    );
+  }
+
+  assignPlayerToTournament(
+    tournamentId: string,
+    playerId: string
+  ): Observable<PlayerToTournamentModel> {
+    const playerToTournamentModel: PlayerToTournamentModel = {
+      tournamentId,
+      playerId,
+    };
+    return this.httpClient.put<PlayerToTournamentModel>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/players/' + playerId,
+      playerToTournamentModel
     );
   }
 }
@@ -59,4 +73,9 @@ enum TournamentState {
   INITIALIZING = 'Initializing',
   IN_PROGRESS = 'In Progress',
   DONE = 'Done',
+}
+
+export interface PlayerToTournamentModel {
+  tournamentId: string;
+  playerId: string;
 }

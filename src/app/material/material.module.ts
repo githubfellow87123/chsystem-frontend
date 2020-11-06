@@ -15,6 +15,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   exports: [
@@ -33,6 +35,8 @@ import { MatListModule } from '@angular/material/list';
     MatMomentDateModule,
     MatTabsModule,
     MatListModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
 })
 export class MaterialModule {}

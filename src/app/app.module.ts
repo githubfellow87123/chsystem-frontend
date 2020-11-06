@@ -9,8 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { FormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -24,6 +23,7 @@ import {
 import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentOverviewComponent } from './tournament/tournament-overview/tournament-overview.component';
 import { TournamentPlayersComponent } from './tournament/tournament-players/tournament-players.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,8 @@ import { TournamentPlayersComponent } from './tournament/tournament-players/tour
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
