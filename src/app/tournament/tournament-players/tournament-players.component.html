@@ -1,6 +1,6 @@
 <h2>Add Players to Tournament</h2>
 
-<form class="example-form" (ngSubmit)="addPlayersToTournament()">
+<form class="example-form" (ngSubmit)="addPlayerToTournament()">
   <mat-form-field class="example-full-width">
     <input
       type="text"
@@ -24,6 +24,31 @@
 </form>
 
 <h2>Players In Tournament</h2>
-<mat-list role="list" *ngFor="let player of playersInTournament">
-  <mat-list-item role="listitem">{{ player.name }}</mat-list-item>
-</mat-list>
+
+<table mat-table [dataSource]="playersInTournament" class="mat-elevation-z8">
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Num.</th>
+    <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}.</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <td mat-cell *matCellDef="let player">{{ player.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <td mat-cell *matCellDef="let player">
+      <button
+        mat-mini-fab
+        color="warn"
+        (click)="removePlayerFromTournament(player)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['position', 'name', 'delete']"
+  ></tr>
+</table>

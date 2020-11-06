@@ -20,8 +20,6 @@ export class TournamentPlayersComponent implements OnInit {
   playersNotInTournamentFormControl = new FormControl();
   filteredPlayersNotInTournamentOptions: Observable<string[]>;
 
-  options: string[] = ['One', 'Two', 'Three'];
-
   constructor(
     private tournamentService: TournamentService,
     private playerService: PlayerService
@@ -62,7 +60,7 @@ export class TournamentPlayersComponent implements OnInit {
       );
   }
 
-  addPlayersToTournament(): void {
+  addPlayerToTournament(): void {
     const playerName = this.playersNotInTournamentFormControl.value;
 
     const index = this.playersNotInTournament.findIndex(
@@ -77,6 +75,26 @@ export class TournamentPlayersComponent implements OnInit {
         this.playersInTournament.push(player);
         this.playersInTournament = this.sortBy(
           this.playersInTournament,
+          'name'
+        );
+        this.playersInTournament = [...this.playersInTournament];
+        this.playersNotInTournamentFormControl.patchValue('');
+      });
+  }
+
+  removePlayerFromTournament(player: Player): void {
+    const index = this.playersInTournament.findIndex(
+      (playerInTournament) => playerInTournament.id === player.id
+    );
+
+    this.tournamentService
+      .removePlayerFromTournament(this.tournamentId, player.id)
+      .subscribe(() => {
+        this.playersInTournament.splice(index, 1);
+        this.playersInTournament = [...this.playersInTournament];
+        this.playersNotInTournament.push(player);
+        this.playersNotInTournament = this.sortBy(
+          this.playersNotInTournament,
           'name'
         );
         this.playersNotInTournamentFormControl.patchValue('');

@@ -54,6 +54,21 @@ export class TournamentService {
       playerToTournamentModel
     );
   }
+
+  removePlayerFromTournament(
+    tournamentId: string,
+    playerId: string
+  ): Observable<{}> {
+    const playerToTournamentModel: PlayerToTournamentModel = {
+      tournamentId,
+      playerId,
+    };
+    return this.httpClient.request<PlayerToTournamentModel>(
+      'delete',
+      this.backendTournamentsUrl + '/' + tournamentId + '/players/' + playerId,
+      { body: playerToTournamentModel }
+    );
+  }
 }
 
 export interface Tournament {
