@@ -1,7 +1,9 @@
-<h2>Round 1</h2>
+<h2 *ngIf="tournament != null && tournament.roundIndex != null">
+  Round {{ tournament.roundIndex }}
+</h2>
 
 <table>
-  <tr *ngFor="let match of matches">
+  <tr *ngFor="let match of matchesCurrentRound">
     <td>
       {{ match.playerName1 }}
     </td>
@@ -47,3 +49,22 @@
 <button mat-raised-button color="primary" (click)="enterMatchResults()">
   Save
 </button>
+
+<div
+  *ngFor="
+    let roundToMatchesEntry of matchesPreviousRounds | keyvalue: keyDescOrder
+  "
+>
+  <h2>Round {{ roundToMatchesEntry.key }}</h2>
+  <table>
+    <tr *ngFor="let match of roundToMatchesEntry.value">
+      <td>
+        {{ match.playerName1 }}
+      </td>
+      <td>{{ match.winsPlayer1 }} : {{ match.winsPlayer2 }}</td>
+      <td>
+        {{ match.playerName2 == null ? "None" : match.playerName2 }}
+      </td>
+    </tr>
+  </table>
+</div>
