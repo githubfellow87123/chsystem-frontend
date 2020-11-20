@@ -1,54 +1,59 @@
-<h2 *ngIf="tournament != null && tournament.roundIndex != null">
-  Round {{ tournament.roundIndex }}
-</h2>
-
-<table>
-  <tr *ngFor="let match of matchesCurrentRound">
-    <td>
-      {{ match.playerName1 }}
-    </td>
-    <td>
-      <mat-form-field>
-        <mat-label>Wins {{ match.playerName1 }}</mat-label>
-        <label>
-          <input
-            matInput
-            type="number"
-            min="0"
-            max="2"
-            [(ngModel)]="match.winsPlayer1"
-          />
-        </label>
-      </mat-form-field>
-    </td>
-    <td>:</td>
-    <td>
-      <mat-form-field>
-        <mat-label
-          >Wins
-          {{
-            match.playerName2 == null ? "None" : match.playerName2
-          }}</mat-label
-        >
-        <label>
-          <input
-            matInput
-            type="number"
-            min="0"
-            max="2"
-            [(ngModel)]="match.winsPlayer2"
-          />
-        </label>
-      </mat-form-field>
-    </td>
-    <td>
-      {{ match.playerName2 == null ? "None" : match.playerName2 }}
-    </td>
-  </tr>
-</table>
-<button mat-raised-button color="primary" (click)="enterMatchResults()">
-  Save
-</button>
+<div
+  *ngIf="
+    tournament != null &&
+    tournament.roundIndex != null &&
+    tournament.state != tournamentState.DONE
+  "
+>
+  <h2>Round {{ tournament.roundIndex }}</h2>
+  <table>
+    <tr *ngFor="let match of matchesCurrentRound">
+      <td>
+        {{ match.playerName1 }}
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Wins {{ match.playerName1 }}</mat-label>
+          <label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="2"
+              [(ngModel)]="match.winsPlayer1"
+            />
+          </label>
+        </mat-form-field>
+      </td>
+      <td>:</td>
+      <td>
+        <mat-form-field>
+          <mat-label
+            >Wins
+            {{
+              match.playerName2 == null ? "None" : match.playerName2
+            }}</mat-label
+          >
+          <label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="2"
+              [(ngModel)]="match.winsPlayer2"
+            />
+          </label>
+        </mat-form-field>
+      </td>
+      <td>
+        {{ match.playerName2 == null ? "None" : match.playerName2 }}
+      </td>
+    </tr>
+  </table>
+  <button mat-raised-button color="primary" (click)="enterMatchResults()">
+    Save
+  </button>
+</div>
 
 <div
   *ngFor="

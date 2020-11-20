@@ -10,6 +10,7 @@ import {
   MatchResultModel,
   TournamentModel,
   TournamentService,
+  TournamentState,
 } from '../../tournament.service';
 import { KeyValue } from '@angular/common';
 
@@ -25,7 +26,7 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
   matchesCurrentRound: Match[];
   matchesPreviousRounds: Map<number, Match[]>;
 
-  matches: Match[];
+  tournamentState = TournamentState;
 
   constructor(private tournamentService: TournamentService) {}
 
@@ -36,7 +37,6 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
       this.tournamentService
         .getMatches(this.tournament.id)
         .subscribe((matches) => {
-          this.matches = matches;
           this.matchesCurrentRound = matches.filter(
             (match) => match.roundIndex === this.tournament.roundIndex
           );
@@ -66,14 +66,24 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
   }
 
   private getMatchesPreviousRounds(allMatches: Match[]): Map<number, Match[]> {
-    const matchesPreviousRoundsArray = allMatches.filter(
-      (match) => match.roundIndex < this.tournament.roundIndex
-    );
+    const matchesPreviousRoundsArray = allMatches.filter((match) => {
+      if (this.tournament.state === TournamentState.DONE) {
+        return true;
+      } else {
+        return match.roundIndex < this.tournament.roundIndex;
+      }
+    });
 
     const matchesPreviousRounds = new Map<number, Match[]>();
 
-    for (let i = 1; i < this.tournament.roundIndex; i++) {
-      matchesPreviousRounds.set(i, []);
+    if (this.tournament.state === TournamentState.DONE) {
+      for (let i = 1; i <= this.tournament.roundIndex; i++) {
+        matchesPreviousRounds.set(i, []);
+      }
+    } else {
+      for (let i = 1; i < this.tournament.roundIndex; i++) {
+        matchesPreviousRounds.set(i, []);
+      }
     }
 
     matchesPreviousRoundsArray.forEach((match) => {
