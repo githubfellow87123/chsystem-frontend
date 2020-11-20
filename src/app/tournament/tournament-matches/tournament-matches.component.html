@@ -9,7 +9,13 @@
       <mat-form-field>
         <mat-label>Wins {{ match.playerName1 }}</mat-label>
         <label>
-          <input matInput type="number" min="0" max="2" [defaultValue]="0" />
+          <input
+            matInput
+            type="number"
+            min="0"
+            max="2"
+            [(ngModel)]="match.winsPlayer1"
+          />
         </label>
       </mat-form-field>
     </td>
@@ -23,7 +29,13 @@
           }}</mat-label
         >
         <label>
-          <input matInput type="number" min="0" max="2" [defaultValue]="0" />
+          <input
+            matInput
+            type="number"
+            min="0"
+            max="2"
+            [(ngModel)]="match.winsPlayer2"
+          />
         </label>
       </mat-form-field>
     </td>
@@ -32,3 +44,6 @@
     </td>
   </tr>
 </table>
+<button mat-raised-button color="primary" (click)="enterMatchResults()">
+  Save
+</button>

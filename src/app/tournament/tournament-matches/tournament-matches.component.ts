@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import {
   Match,
+  MatchResultModel,
   TournamentModel,
   TournamentService,
 } from '../../tournament.service';
@@ -34,5 +35,25 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
           this.matches = matches;
         });
     }
+  }
+
+  enterMatchResults(): void {
+    this.matches.forEach((match) => {
+      if (match.winsPlayer1 != null && match.winsPlayer2 != null) {
+        this.enterMatchResult(match);
+      }
+    });
+  }
+
+  private enterMatchResult(match: Match): void {
+    const matchResult: MatchResultModel = {
+      id: match.id,
+      winsPlayer1: match.winsPlayer1,
+      winsPlayer2: match.winsPlayer2,
+    };
+
+    this.tournamentService
+      .enterMatchResult(match.tournamentId, matchResult)
+      .subscribe();
   }
 }

@@ -95,6 +95,19 @@ export class TournamentService {
       this.backendTournamentsUrl + '/' + tournamentId + '/matches'
     );
   }
+
+  enterMatchResult(
+    tournamentId: string,
+    matchResultModel: MatchResultModel
+  ): Observable<{}> {
+    const url =
+      this.backendTournamentsUrl +
+      '/' +
+      tournamentId +
+      '/matches/' +
+      matchResultModel.id;
+    return this.httpClient.put(url, matchResultModel);
+  }
 }
 
 export interface Tournament {
@@ -123,7 +136,16 @@ export interface PlayerToTournamentModel {
 
 export interface Match {
   id: string;
+  tournamentId: string;
   playerName1: string;
   playerName2?: string;
+  winsPlayer1?: number;
+  winsPlayer2?: number;
   roundIndex: number;
+}
+
+export interface MatchResultModel {
+  id: string;
+  winsPlayer1: number;
+  winsPlayer2: number;
 }
