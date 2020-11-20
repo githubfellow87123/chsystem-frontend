@@ -2,7 +2,8 @@
   *ngIf="
     tournament != null &&
     tournament.roundIndex != null &&
-    tournament.state != tournamentState.DONE
+    tournament.state != tournamentState.DONE &&
+    tournament.roundIndex != 0
   "
 >
   <h2>Round {{ tournament.roundIndex }}</h2>
