@@ -103,6 +103,12 @@ export class TournamentService {
     );
   }
 
+  getStandings(tournamentId: string): Observable<StandingsModel[]> {
+    return this.httpClient.get<StandingsModel[]>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/standings'
+    );
+  }
+
   enterMatchResult(
     tournamentId: string,
     matchResultModel: MatchResultModel
@@ -155,4 +161,18 @@ export interface MatchResultModel {
   id: string;
   winsPlayer1: number;
   winsPlayer2: number;
+}
+
+export interface StandingsModel {
+  rank?: number;
+  playerName: string;
+  score: number;
+  matchWins: number;
+  matchLosses: number;
+  matchDraws: number;
+  opponentAverageScore: number;
+  gameWins: number;
+  gameLosses: number;
+  gameWinPercentage: number;
+  opponentAverageGameWinPercentage: number;
 }

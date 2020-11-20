@@ -12,5 +12,9 @@
   <mat-tab label="Matches">
     <app-tournament-matches [tournament]="tournament"></app-tournament-matches>
   </mat-tab>
-  <mat-tab label="Standings">TBA</mat-tab>
+  <mat-tab label="Standings">
+    <app-tournament-standings
+      [tournament]="tournament"
+    ></app-tournament-standings>
+  </mat-tab>
 </mat-tab-group>
