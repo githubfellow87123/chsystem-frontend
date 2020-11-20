@@ -24,6 +24,7 @@ import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentOverviewComponent } from './tournament/tournament-overview/tournament-overview.component';
 import { TournamentPlayersComponent } from './tournament/tournament-players/tournament-players.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     TournamentComponent,
     TournamentOverviewComponent,
     TournamentPlayersComponent,
+    TournamentMatchesComponent,
   ],
   imports: [
     BrowserModule,

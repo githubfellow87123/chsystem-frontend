@@ -89,6 +89,12 @@ export class TournamentService {
       this.backendTournamentsUrl + '/' + tournamentId + '/players/seatingOrder'
     );
   }
+
+  getMatches(tournamentId: string): Observable<Match[]> {
+    return this.httpClient.get<Match[]>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/matches'
+    );
+  }
 }
 
 export interface Tournament {
@@ -113,4 +119,11 @@ export enum TournamentState {
 export interface PlayerToTournamentModel {
   tournamentId: string;
   playerId: string;
+}
+
+export interface Match {
+  id: string;
+  playerName1: string;
+  playerName2?: string;
+  roundIndex: number;
 }

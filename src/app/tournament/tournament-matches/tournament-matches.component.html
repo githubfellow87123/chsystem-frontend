@@ -1,0 +1,34 @@
+<h2>Round 1</h2>
+
+<table>
+  <tr *ngFor="let match of matches">
+    <td>
+      {{ match.playerName1 }}
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label>Wins {{ match.playerName1 }}</mat-label>
+        <label>
+          <input matInput type="number" min="0" max="2" [defaultValue]="0" />
+        </label>
+      </mat-form-field>
+    </td>
+    <td>:</td>
+    <td>
+      <mat-form-field>
+        <mat-label
+          >Wins
+          {{
+            match.playerName2 == null ? "None" : match.playerName2
+          }}</mat-label
+        >
+        <label>
+          <input matInput type="number" min="0" max="2" [defaultValue]="0" />
+        </label>
+      </mat-form-field>
+    </td>
+    <td>
+      {{ match.playerName2 == null ? "None" : match.playerName2 }}
+    </td>
+  </tr>
+</table>
