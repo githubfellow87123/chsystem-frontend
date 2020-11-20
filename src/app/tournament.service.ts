@@ -84,6 +84,13 @@ export class TournamentService {
     );
   }
 
+  finishTournament(tournamentId: string): Observable<Tournament> {
+    return this.httpClient.put<Tournament>(
+      this.backendTournamentsUrl + '/' + tournamentId + '/finish',
+      null
+    );
+  }
+
   getSeatingOrder(tournamentId: string): Observable<Player[]> {
     return this.httpClient.get<Player[]>(
       this.backendTournamentsUrl + '/' + tournamentId + '/players/seatingOrder'
