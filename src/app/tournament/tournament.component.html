@@ -10,11 +10,15 @@
     <app-tournament-players [tournament]="tournament"></app-tournament-players>
   </mat-tab>
   <mat-tab label="Matches">
-    <app-tournament-matches [tournament]="tournament"></app-tournament-matches>
+    <app-tournament-matches
+      [tournament]="tournament"
+      (matchesChangedEvent)="onMatchesChangedEvent()"
+    ></app-tournament-matches>
   </mat-tab>
   <mat-tab label="Standings">
     <app-tournament-standings
       [tournament]="tournament"
+      [matchesChangedCounter]="matchesChangedCounter"
     ></app-tournament-standings>
   </mat-tab>
 </mat-tab-group>

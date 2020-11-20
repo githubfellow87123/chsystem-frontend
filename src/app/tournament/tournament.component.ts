@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TournamentModel, TournamentService } from '../tournament.service';
-import { Player } from '../player.service';
 
 @Component({
   selector: 'app-tournament',
@@ -11,6 +10,7 @@ import { Player } from '../player.service';
 export class TournamentComponent implements OnInit {
   id: string;
   tournament: TournamentModel;
+  matchesChangedCounter = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,5 +28,9 @@ export class TournamentComponent implements OnInit {
 
   onTournamentChangedEvent(tournamentModel: TournamentModel): void {
     this.tournament = tournamentModel;
+  }
+
+  onMatchesChangedEvent(): void {
+    this.matchesChangedCounter++;
   }
 }

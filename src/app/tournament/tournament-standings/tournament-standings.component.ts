@@ -22,6 +22,10 @@ import { MatSort } from '@angular/material/sort';
 export class TournamentStandingsComponent implements OnChanges {
   @Input()
   tournament: TournamentModel;
+  // This is a hack to reload the standings if a match result was entered
+  // Not sure how to do it differently
+  @Input()
+  matchesChangedCounter: number;
 
   displayedColumns: string[] = [
     'rank',

@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -22,6 +24,8 @@ import { KeyValue } from '@angular/common';
 export class TournamentMatchesComponent implements OnInit, OnChanges {
   @Input()
   tournament: TournamentModel;
+
+  @Output() matchesChangedEvent = new EventEmitter();
 
   matchesCurrentRound: Match[];
   matchesPreviousRounds: Map<number, Match[]>;
@@ -62,7 +66,7 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
 
     this.tournamentService
       .enterMatchResult(match.tournamentId, matchResult)
-      .subscribe();
+      .subscribe(() => this.matchesChangedEvent.emit());
   }
 
   private getMatchesPreviousRounds(allMatches: Match[]): Map<number, Match[]> {
