@@ -9,6 +9,9 @@
 </mat-list>
 
 <button
+  [disabled]="
+    tournament != null && tournament.state != tournamentState.INITIALIZING
+  "
   mat-raised-button
   color="primary"
   (click)="startTournament(tournament.id)"
@@ -16,6 +19,9 @@
   Start
 </button>
 <button
+  [disabled]="
+    tournament != null && tournament.state != tournamentState.IN_PROGRESS
+  "
   mat-raised-button
   color="primary"
   (click)="startNextRound(tournament.id)"
@@ -23,6 +29,9 @@
   Next Round
 </button>
 <button
+  [disabled]="
+    tournament != null && tournament.state != tournamentState.IN_PROGRESS
+  "
   mat-raised-button
   color="primary"
   (click)="finishTournament(tournament.id)"

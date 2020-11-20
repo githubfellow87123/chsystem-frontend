@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TournamentModel, TournamentService } from '../../tournament.service';
+import {
+  TournamentModel,
+  TournamentService,
+  TournamentState,
+} from '../../tournament.service';
 
 @Component({
   selector: 'app-tournament-overview',
@@ -11,6 +15,8 @@ export class TournamentOverviewComponent implements OnInit {
   tournament: TournamentModel;
 
   @Output() tournamentChangeEvent = new EventEmitter<TournamentModel>();
+
+  tournamentState = TournamentState;
 
   constructor(private tournamentService: TournamentService) {}
 
