@@ -3,6 +3,8 @@ import { Player, PlayerModel, PlayerService } from '../player.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackBarComponent } from '../common/error-snack-bar/error-snack-bar.component';
 
 @Component({
   selector: 'app-player-list',
@@ -20,7 +22,10 @@ export class PlayerListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public playerService: PlayerService) {}
+  constructor(
+    public playerService: PlayerService,
+    public snackBar: MatSnackBar
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -51,12 +56,21 @@ export class PlayerListComponent implements AfterViewInit {
   }
 
   deletePlayer(id: string): void {
-    this.playerService.deletePlayer(id).subscribe(() => {
-      const index = this.dataSource.data.findIndex(
-        (player) => player.id === id
-      );
-      this.dataSource.data.splice(index, 1);
-      this.dataSource.data = [...this.dataSource.data];
-    });
+    this.playerService.deletePlayer(id).subscribe(
+      () => {
+        const index = this.dataSource.data.findIndex(
+          (player) => player.id === id
+        );
+        this.dataSource.data.splice(index, 1);
+        this.dataSource.data = [...this.dataSource.data];
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 }

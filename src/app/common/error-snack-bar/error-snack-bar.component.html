@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <td>
+      <mat-icon color="warn">warning</mat-icon>
+    </td>
+    <td>
+      <mat-error>
+        {{ data }}
+      </mat-error>
+    </td>
+  </tr>
+</table>
+
+<button mat-button (click)="snackBar.dismiss()">Close</button>

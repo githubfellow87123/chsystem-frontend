@@ -26,6 +26,7 @@ import { TournamentPlayersComponent } from './tournament/tournament-players/tour
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
 import { TournamentStandingsComponent } from './tournament/tournament-standings/tournament-standings.component';
+import { ErrorSnackBarComponent } from './common/error-snack-bar/error-snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TournamentStandingsComponent } from './tournament/tournament-standings/
     TournamentPlayersComponent,
     TournamentMatchesComponent,
     TournamentStandingsComponent,
+    ErrorSnackBarComponent,
   ],
   imports: [
     BrowserModule,
