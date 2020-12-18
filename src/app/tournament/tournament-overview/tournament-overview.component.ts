@@ -4,6 +4,8 @@ import {
   TournamentService,
   TournamentState,
 } from '../../tournament.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackBarComponent } from '../../common/error-snack-bar/error-snack-bar.component';
 
 @Component({
   selector: 'app-tournament-overview',
@@ -18,34 +20,58 @@ export class TournamentOverviewComponent implements OnInit {
 
   tournamentState = TournamentState;
 
-  constructor(private tournamentService: TournamentService) {}
+  constructor(
+    private tournamentService: TournamentService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
   startTournament(tournamentId: string): void {
-    this.tournamentService
-      .startTournament(tournamentId)
-      .subscribe((tournament) => {
+    this.tournamentService.startTournament(tournamentId).subscribe(
+      (tournament) => {
         this.tournament = tournament;
         this.tournamentChangeEvent.emit(tournament);
-      });
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 
   startNextRound(tournamentId: string): void {
-    this.tournamentService
-      .startNextRound(tournamentId)
-      .subscribe((tournament) => {
+    this.tournamentService.startNextRound(tournamentId).subscribe(
+      (tournament) => {
         this.tournament = tournament;
         this.tournamentChangeEvent.emit(tournament);
-      });
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 
   finishTournament(tournamentId: string): void {
-    this.tournamentService
-      .finishTournament(tournamentId)
-      .subscribe((tournament) => {
+    this.tournamentService.finishTournament(tournamentId).subscribe(
+      (tournament) => {
         this.tournament = tournament;
         this.tournamentChangeEvent.emit(tournament);
-      });
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 }

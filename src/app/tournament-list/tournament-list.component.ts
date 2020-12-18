@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TournamentModel, TournamentService } from '../tournament.service';
 import { Router } from '@angular/router';
+import { ErrorSnackBarComponent } from '../common/error-snack-bar/error-snack-bar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tournament-list',
@@ -21,7 +23,8 @@ export class TournamentListComponent implements AfterViewInit {
 
   constructor(
     public tournamentService: TournamentService,
-    private router: Router
+    private router: Router,
+    public snackBar: MatSnackBar
   ) {}
 
   ngAfterViewInit(): void {
@@ -52,13 +55,22 @@ export class TournamentListComponent implements AfterViewInit {
   }
 
   deleteTournament(tournamentId: string): void {
-    this.tournamentService.deleteTournament(tournamentId).subscribe(() => {
-      const index = this.dataSource.data.findIndex(
-        (tournament) => tournament.id === tournamentId
-      );
-      this.dataSource.data.splice(index, 1);
-      this.dataSource.data = [...this.dataSource.data];
-    });
+    this.tournamentService.deleteTournament(tournamentId).subscribe(
+      () => {
+        const index = this.dataSource.data.findIndex(
+          (tournament) => tournament.id === tournamentId
+        );
+        this.dataSource.data.splice(index, 1);
+        this.dataSource.data = [...this.dataSource.data];
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 
   view(id: string): void {

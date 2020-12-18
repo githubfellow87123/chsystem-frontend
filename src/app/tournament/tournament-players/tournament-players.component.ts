@@ -4,7 +4,6 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { Player, PlayerService } from '../../player.service';
 import {
@@ -12,9 +11,11 @@ import {
   TournamentService,
   TournamentState,
 } from '../../tournament.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackBarComponent } from '../../common/error-snack-bar/error-snack-bar.component';
 
 @Component({
   selector: 'app-tournament-players',
@@ -34,7 +35,8 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
 
   constructor(
     private tournamentService: TournamentService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -95,16 +97,25 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
 
     this.tournamentService
       .assignPlayerToTournament(this.tournament.id, player.id)
-      .subscribe(() => {
-        this.playersNotInTournament.splice(index, 1);
-        this.playersInTournament.push(player);
-        this.playersInTournament = this.sortBy(
-          this.playersInTournament,
-          'name'
-        );
-        this.playersInTournament = [...this.playersInTournament];
-        this.playersNotInTournamentFormControl.patchValue('');
-      });
+      .subscribe(
+        () => {
+          this.playersNotInTournament.splice(index, 1);
+          this.playersInTournament.push(player);
+          this.playersInTournament = this.sortBy(
+            this.playersInTournament,
+            'name'
+          );
+          this.playersInTournament = [...this.playersInTournament];
+          this.playersNotInTournamentFormControl.patchValue('');
+        },
+        (error) => {
+          this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+            data: error.error.message,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+          });
+        }
+      );
   }
 
   removePlayerFromTournament(player: Player): void {
@@ -114,16 +125,25 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
 
     this.tournamentService
       .removePlayerFromTournament(this.tournament.id, player.id)
-      .subscribe(() => {
-        this.playersInTournament.splice(index, 1);
-        this.playersInTournament = [...this.playersInTournament];
-        this.playersNotInTournament.push(player);
-        this.playersNotInTournament = this.sortBy(
-          this.playersNotInTournament,
-          'name'
-        );
-        this.playersNotInTournamentFormControl.patchValue('');
-      });
+      .subscribe(
+        () => {
+          this.playersInTournament.splice(index, 1);
+          this.playersInTournament = [...this.playersInTournament];
+          this.playersNotInTournament.push(player);
+          this.playersNotInTournament = this.sortBy(
+            this.playersNotInTournament,
+            'name'
+          );
+          this.playersNotInTournamentFormControl.patchValue('');
+        },
+        (error) => {
+          this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+            data: error.error.message,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+          });
+        }
+      );
   }
 
   sortBy(players: Player[], prop: string): Player[] {
