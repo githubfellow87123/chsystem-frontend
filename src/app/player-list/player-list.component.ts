@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { Player, PlayerService, PlayerModel } from '../player.service';
+import { Player, PlayerModel, PlayerService } from '../player.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,6 +14,8 @@ export class PlayerListComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['id', 'name', 'delete'];
   dataSource = new MatTableDataSource<Player>([]);
+
+  addPlayerErrorMessage: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,11 +36,18 @@ export class PlayerListComponent implements AfterViewInit {
       name: playerName,
     };
 
-    this.playerService.addPlayer(playerModel).subscribe((player) => {
-      this.dataSource.data.push(player);
-      this.dataSource.data = [...this.dataSource.data];
-      this.currentPlayerNameInput = '';
-    });
+    this.playerService.addPlayer(playerModel).subscribe(
+      (player) => {
+        this.dataSource.data.push(player);
+        this.dataSource.data = [...this.dataSource.data];
+        this.currentPlayerNameInput = '';
+        this.addPlayerErrorMessage = null;
+      },
+      (error) => {
+        this.addPlayerErrorMessage = error.error.message;
+        console.log(error);
+      }
+    );
   }
 
   deletePlayer(id: string): void {

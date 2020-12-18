@@ -46,4 +46,7 @@
   <button mat-raised-button (click)="addPlayer(currentPlayerNameInput)">
     Add Player
   </button>
+  <mat-error *ngIf="addPlayerErrorMessage != null">
+    {{ addPlayerErrorMessage }}
+  </mat-error>
 </form>
