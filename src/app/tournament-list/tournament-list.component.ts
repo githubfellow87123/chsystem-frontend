@@ -16,10 +16,10 @@ export class TournamentListComponent implements AfterViewInit {
   currentTournamentDate = new Date();
 
   displayedColumns: string[] = ['id', 'date', 'state', 'view', 'delete'];
-  dataSource = new MatTableDataSource([]);
+  dataSource = new MatTableDataSource<TournamentModel>([]);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public tournamentService: TournamentService,

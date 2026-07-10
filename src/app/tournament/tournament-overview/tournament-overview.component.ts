@@ -12,9 +12,9 @@ import { ErrorSnackBarComponent } from '../../common/error-snack-bar/error-snack
   templateUrl: './tournament-overview.component.html',
   styleUrls: ['./tournament-overview.component.scss'],
 })
-export class TournamentOverviewComponent implements OnInit {
+export class TournamentOverviewComponent {
   @Input()
-  tournament: TournamentModel;
+  tournament!: TournamentModel;
 
   @Output() tournamentChangeEvent = new EventEmitter<TournamentModel>();
 
@@ -25,9 +25,8 @@ export class TournamentOverviewComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
-
-  startTournament(tournamentId: string): void {
+  startTournament(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
     this.tournamentService.startTournament(tournamentId).subscribe(
       (tournament) => {
         this.tournament = tournament;
@@ -43,7 +42,8 @@ export class TournamentOverviewComponent implements OnInit {
     );
   }
 
-  startNextRound(tournamentId: string): void {
+  startNextRound(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
     this.tournamentService.startNextRound(tournamentId).subscribe(
       (tournament) => {
         this.tournament = tournament;
@@ -59,7 +59,8 @@ export class TournamentOverviewComponent implements OnInit {
     );
   }
 
-  finishTournament(tournamentId: string): void {
+  finishTournament(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
     this.tournamentService.finishTournament(tournamentId).subscribe(
       (tournament) => {
         this.tournament = tournament;

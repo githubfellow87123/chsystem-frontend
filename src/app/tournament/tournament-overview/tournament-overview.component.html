@@ -1,4 +1,4 @@
-<mat-list role="list" *ngIf="tournament != null">
+<mat-list role="list" *ngIf="tournament">
   <mat-list-item role="listitem">
     Date: {{ tournament.date | date: "yyyy-MM-dd" }}
   </mat-list-item>
@@ -10,7 +10,7 @@
 
 <button
   [disabled]="
-    tournament != null && tournament.state != tournamentState.INITIALIZING
+    tournament && tournament.state !== tournamentState.INITIALIZING
   "
   mat-raised-button
   color="primary"
@@ -20,7 +20,7 @@
 </button>
 <button
   [disabled]="
-    tournament != null && tournament.state != tournamentState.IN_PROGRESS
+    tournament && tournament.state !== tournamentState.IN_PROGRESS
   "
   mat-raised-button
   color="primary"
@@ -30,7 +30,7 @@
 </button>
 <button
   [disabled]="
-    tournament != null && tournament.state != tournamentState.IN_PROGRESS
+    tournament && tournament.state !== tournamentState.IN_PROGRESS
   "
   mat-raised-button
   color="primary"

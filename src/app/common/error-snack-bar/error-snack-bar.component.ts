@@ -9,11 +9,9 @@ import {
   templateUrl: './error-snack-bar.component.html',
   styleUrls: ['./error-snack-bar.component.scss'],
 })
-export class ErrorSnackBarComponent implements OnInit {
+export class ErrorSnackBarComponent {
   constructor(
     public snackBar: MatSnackBarRef<ErrorSnackBarComponent>,
     @Inject(MAT_SNACK_BAR_DATA) public data: string
   ) {}
-
-  ngOnInit(): void {}
 }

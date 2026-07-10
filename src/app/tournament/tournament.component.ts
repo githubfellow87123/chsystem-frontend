@@ -8,8 +8,8 @@ import { TournamentModel, TournamentService } from '../tournament.service';
   styleUrls: ['./tournament.component.scss'],
 })
 export class TournamentComponent implements OnInit {
-  id: string;
-  tournament: TournamentModel;
+  id!: string;
+  tournament!: TournamentModel;
   matchesChangedCounter = 0;
 
   constructor(
@@ -19,9 +19,9 @@ export class TournamentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.id = params.id;
+      this.id = params['id'];
       this.tournamentService
-        .getTournament(params.id)
+        .getTournament(params['id'])
         .subscribe((tournament) => (this.tournament = tournament));
     });
   }

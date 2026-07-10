@@ -21,11 +21,11 @@ import { MatSort } from '@angular/material/sort';
 })
 export class TournamentStandingsComponent implements OnChanges {
   @Input()
-  tournament: TournamentModel;
+  tournament!: TournamentModel;
   // This is a hack to reload the standings if a match result was entered
   // Not sure how to do it differently
   @Input()
-  matchesChangedCounter: number;
+  matchesChangedCounter!: number;
 
   displayedColumns: string[] = [
     'rank',
@@ -39,8 +39,8 @@ export class TournamentStandingsComponent implements OnChanges {
   ];
   dataSource = new MatTableDataSource<StandingsModel>([]);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private tournamentService: TournamentService) {}
 
@@ -50,7 +50,7 @@ export class TournamentStandingsComponent implements OnChanges {
       this.dataSource.sort = this.sort;
 
       this.tournamentService
-        .getStandings(this.tournament.id)
+        .getStandings(this.tournament.id!)
         .subscribe((standings) => {
           for (let i = 0; i < standings.length; i++) {
             const standing = standings[i];

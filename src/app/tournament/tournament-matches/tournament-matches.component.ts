@@ -21,25 +21,23 @@ import { KeyValue } from '@angular/common';
   templateUrl: './tournament-matches.component.html',
   styleUrls: ['./tournament-matches.component.scss'],
 })
-export class TournamentMatchesComponent implements OnInit, OnChanges {
+export class TournamentMatchesComponent implements OnChanges {
   @Input()
-  tournament: TournamentModel;
+  tournament!: TournamentModel;
 
   @Output() matchesChangedEvent = new EventEmitter();
 
-  matchesCurrentRound: Match[];
-  matchesPreviousRounds: Map<number, Match[]>;
+  matchesCurrentRound: Match[] = [];
+  matchesPreviousRounds: Map<number, Match[]> = new Map();
 
   tournamentState = TournamentState;
 
   constructor(private tournamentService: TournamentService) {}
 
-  ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if (this.tournament != null) {
       this.tournamentService
-        .getMatches(this.tournament.id)
+        .getMatches(this.tournament.id!)
         .subscribe((matches) => {
           this.matchesCurrentRound = matches.filter(
             (match) => match.roundIndex === this.tournament.roundIndex
@@ -60,8 +58,8 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
   private enterMatchResult(match: Match): void {
     const matchResult: MatchResultModel = {
       id: match.id,
-      winsPlayer1: match.winsPlayer1,
-      winsPlayer2: match.winsPlayer2,
+      winsPlayer1: match.winsPlayer1 ?? 0,
+      winsPlayer2: match.winsPlayer2 ?? 0,
     };
 
     this.tournamentService
@@ -74,25 +72,27 @@ export class TournamentMatchesComponent implements OnInit, OnChanges {
       if (this.tournament.state === TournamentState.DONE) {
         return true;
       } else {
-        return match.roundIndex < this.tournament.roundIndex;
+        return match.roundIndex < (this.tournament.roundIndex ?? 0);
       }
     });
 
     const matchesPreviousRounds = new Map<number, Match[]>();
 
     if (this.tournament.state === TournamentState.DONE) {
-      for (let i = 1; i <= this.tournament.roundIndex; i++) {
+      for (let i = 1; i <= (this.tournament.roundIndex ?? 0); i++) {
         matchesPreviousRounds.set(i, []);
       }
     } else {
-      for (let i = 1; i < this.tournament.roundIndex; i++) {
+      for (let i = 1; i < (this.tournament.roundIndex ?? 0); i++) {
         matchesPreviousRounds.set(i, []);
       }
     }
 
     matchesPreviousRoundsArray.forEach((match) => {
       const matchesOfRound = matchesPreviousRounds.get(match.roundIndex);
-      matchesOfRound.push(match);
+      if (matchesOfRound) {
+        matchesOfRound.push(match);
+      }
     });
 
     return matchesPreviousRounds;

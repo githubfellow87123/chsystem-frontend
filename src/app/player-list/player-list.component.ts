@@ -17,10 +17,10 @@ export class PlayerListComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'delete'];
   dataSource = new MatTableDataSource<Player>([]);
 
-  addPlayerErrorMessage: string;
+  addPlayerErrorMessage: string | null = null;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public playerService: PlayerService,

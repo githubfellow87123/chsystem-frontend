@@ -1,4 +1,4 @@
-<div *ngIf="tournament != null">
+<div *ngIf="tournament">
   <h2>Add Players to Tournament</h2>
 
   <form class="example-form" (ngSubmit)="addPlayerToTournament()">
@@ -58,7 +58,7 @@
 
   <div
     *ngIf="
-      playersOrderedBySeatingOrder != null &&
+      playersOrderedBySeatingOrder &&
       playersOrderedBySeatingOrder.length > 0
     "
   >

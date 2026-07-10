@@ -22,16 +22,16 @@ import { ErrorSnackBarComponent } from '../../common/error-snack-bar/error-snack
   templateUrl: './tournament-players.component.html',
   styleUrls: ['./tournament-players.component.scss'],
 })
-export class TournamentPlayersComponent implements OnInit, OnChanges {
+export class TournamentPlayersComponent implements OnChanges {
   @Input()
-  tournament: TournamentModel;
+  tournament!: TournamentModel;
 
-  playersInTournament: Player[];
-  playersNotInTournament: Player[];
-  playersOrderedBySeatingOrder: Player[];
+  playersInTournament: Player[] = [];
+  playersNotInTournament: Player[] = [];
+  playersOrderedBySeatingOrder: Player[] = [];
 
   playersNotInTournamentFormControl = new FormControl();
-  filteredPlayersNotInTournamentOptions: Observable<string[]>;
+  filteredPlayersNotInTournamentOptions!: Observable<string[]>;
 
   constructor(
     private tournamentService: TournamentService,
@@ -39,14 +39,12 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if (this.tournament != null) {
       this.playerService.getPlayers().subscribe((allPlayers) => {
         this.playersNotInTournament = allPlayers;
         this.tournamentService
-          .getPlayersOfTournament(this.tournament.id)
+          .getPlayersOfTournament(this.tournament.id!)
           .subscribe((playersInTournament) => {
             this.playersInTournament = playersInTournament;
             this.removePlayersFromPlayersNotInTournament(playersInTournament);
@@ -64,7 +62,7 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
       this.tournament.state === TournamentState.IN_PROGRESS
     ) {
       this.tournamentService
-        .getSeatingOrder(this.tournament.id)
+        .getSeatingOrder(this.tournament.id!)
         .subscribe((players) => (this.playersOrderedBySeatingOrder = players));
     }
   }
@@ -96,7 +94,7 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
     const player = this.playersNotInTournament[index];
 
     this.tournamentService
-      .assignPlayerToTournament(this.tournament.id, player.id)
+      .assignPlayerToTournament(this.tournament.id!, player.id)
       .subscribe(
         () => {
           this.playersNotInTournament.splice(index, 1);
@@ -124,7 +122,7 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
     );
 
     this.tournamentService
-      .removePlayerFromTournament(this.tournament.id, player.id)
+      .removePlayerFromTournament(this.tournament.id!, player.id)
       .subscribe(
         () => {
           this.playersInTournament.splice(index, 1);
@@ -147,12 +145,10 @@ export class TournamentPlayersComponent implements OnInit, OnChanges {
   }
 
   sortBy(players: Player[], prop: string): Player[] {
-    return players.sort((player1, player2) =>
-      player1[prop] > player2[prop]
-        ? 1
-        : player1[prop] === player2[prop]
-        ? 0
-        : -1
-    );
+    return players.sort((player1, player2) => {
+      const val1 = (player1 as any)[prop];
+      const val2 = (player2 as any)[prop];
+      return val1 > val2 ? 1 : val1 === val2 ? 0 : -1;
+    });
   }
 }

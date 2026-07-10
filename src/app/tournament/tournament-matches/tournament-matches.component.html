@@ -1,9 +1,9 @@
 <div
   *ngIf="
-    tournament != null &&
-    tournament.roundIndex != null &&
-    tournament.state != tournamentState.DONE &&
-    tournament.roundIndex != 0
+    tournament &&
+    tournament.roundIndex !== undefined &&
+    tournament.state !== tournamentState.DONE &&
+    tournament.roundIndex !== 0
   "
 >
   <h2>Round {{ tournament.roundIndex }}</h2>
@@ -29,12 +29,12 @@
       <td>:</td>
       <td>
         <mat-form-field class="match-input-right">
-          <mat-label
-            >Wins
-            {{
-              match.playerName2 == null ? "None" : match.playerName2
-            }}</mat-label
-          >
+           <mat-label
+             >Wins
+             {{
+               match.playerName2 === null ? "None" : match.playerName2
+             }}</mat-label
+           >
           <label>
             <input
               matInput
@@ -46,15 +46,15 @@
           </label>
         </mat-form-field>
       </td>
-      <td>
-        {{ match.playerName2 == null ? "None" : match.playerName2 }}
-      </td>
-    </tr>
-  </table>
-  <button mat-raised-button color="primary" (click)="enterMatchResults()">
-    Save
-  </button>
-</div>
+       <td>
+         {{ match.playerName2 === null ? "None" : match.playerName2 }}
+       </td>
+     </tr>
+   </table>
+   <button mat-raised-button color="primary" (click)="enterMatchResults()">
+     Save
+   </button>
+ </div>
 
 <div
   *ngFor="
@@ -67,10 +67,10 @@
       <td>
         {{ match.playerName1 }}
       </td>
-      <td>{{ match.winsPlayer1 }} : {{ match.winsPlayer2 }}</td>
-      <td>
-        {{ match.playerName2 == null ? "None" : match.playerName2 }}
-      </td>
-    </tr>
-  </table>
-</div>
+       <td>{{ match.winsPlayer1 }} : {{ match.winsPlayer2 }}</td>
+       <td>
+         {{ match.playerName2 === null ? "None" : match.playerName2 }}
+       </td>
+     </tr>
+   </table>
+ </div>

@@ -1,4 +1,4 @@
-FROM node:16.13.1 as builder
+FROM node:20.20.2 AS builder
 WORKDIR /app
 
 ## install dependencies
@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 ## add source code and configuration files
-COPY tsconfig.json tsconfig.app.json angular.json ./
+COPY tsconfig.json tsconfig.app.json tsconfig.spec.json angular.json ./
 COPY src/ ./src
 
 # build
