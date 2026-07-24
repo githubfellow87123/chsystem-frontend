@@ -31,72 +31,106 @@
     tournament.state !== tournamentState.DONE &&
     tournament.roundIndex !== 0
   "
+  class="round-section"
 >
-  <h2>Round {{ tournament.roundIndex }}</h2>
-  <table>
-    <tr *ngFor="let match of matchesCurrentRound">
-      <td>
-        {{ match.playerName1 }}
-      </td>
-      <td>
-        <mat-form-field class="match-input-left">
-          <mat-label>Wins {{ match.playerName1 }}</mat-label>
-          <label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              max="2"
-              [(ngModel)]="match.winsPlayer1"
-            />
-          </label>
-        </mat-form-field>
-      </td>
-      <td>:</td>
-      <td>
-        <mat-form-field class="match-input-right">
-           <mat-label
-             >Wins
-             {{
-               match.playerName2 === null ? "None" : match.playerName2
-             }}</mat-label
-           >
-          <label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              max="2"
-              [(ngModel)]="match.winsPlayer2"
-            />
-          </label>
-        </mat-form-field>
-      </td>
-       <td>
-         {{ match.playerName2 === null ? "None" : match.playerName2 }}
-       </td>
-     </tr>
-   </table>
-   <button mat-raised-button color="primary" (click)="enterMatchResults()">
-     Save
-   </button>
- </div>
+  <div class="round-header">
+    <h2>Round {{ tournament.roundIndex }}</h2>
+    <span class="round-hint">Enter the number of wins per player.</span>
+  </div>
+
+  <div class="match-table-wrapper mat-elevation-z8">
+    <table class="match-table">
+      <thead>
+        <tr>
+          <th class="player-cell player-left">Player 1</th>
+          <th class="score-cell"></th>
+          <th class="separator-cell"></th>
+          <th class="score-cell"></th>
+          <th class="player-cell player-right">Player 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let match of matchesCurrentRound">
+          <td class="player-cell player-left">{{ match.playerName1 }}</td>
+          <td class="score-cell">
+            <mat-form-field class="score-input">
+              <input
+                matInput
+                type="number"
+                min="0"
+                [(ngModel)]="match.winsPlayer1"
+              />
+            </mat-form-field>
+          </td>
+          <td class="separator-cell">:</td>
+          <td class="score-cell">
+            <mat-form-field class="score-input">
+              <input
+                matInput
+                type="number"
+                min="0"
+                [(ngModel)]="match.winsPlayer2"
+              />
+            </mat-form-field>
+          </td>
+          <td class="player-cell player-right">
+            {{ match.playerName2 === null ? "None" : match.playerName2 }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="save-row">
+    <button mat-raised-button color="primary" (click)="enterMatchResults()">
+      Save Results
+    </button>
+  </div>
+</div>
 
 <div
   *ngFor="
     let roundToMatchesEntry of matchesPreviousRounds | keyvalue: keyDescOrder
   "
+  class="round-section"
 >
   <h2>Round {{ roundToMatchesEntry.key }}</h2>
-  <table>
-    <tr *ngFor="let match of roundToMatchesEntry.value">
-      <td>
-        {{ match.playerName1 }}
-      </td>
-       <td>{{ match.winsPlayer1 }} : {{ match.winsPlayer2 }}</td>
-       <td>
-         {{ match.playerName2 === null ? "None" : match.playerName2 }}
-       </td>
-     </tr>
-   </table>
- </div>
+
+  <div class="match-table-wrapper mat-elevation-z8">
+    <table class="match-table">
+      <thead>
+        <tr>
+          <th class="player-cell player-left">Player 1</th>
+          <th class="score-cell"></th>
+          <th class="separator-cell"></th>
+          <th class="score-cell"></th>
+          <th class="player-cell player-right">Player 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let match of roundToMatchesEntry.value">
+          <td class="player-cell player-left">{{ match.playerName1 }}</td>
+          <td class="score-cell">{{ match.winsPlayer1 ?? 0 }}</td>
+          <td class="separator-cell">:</td>
+          <td class="score-cell">{{ match.winsPlayer2 ?? 0 }}</td>
+          <td class="player-cell player-right">
+            {{ match.playerName2 === null ? "None" : match.playerName2 }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    tournament &&
+    (tournament.roundIndex === 0 ||
+      tournament.roundIndex === undefined) &&
+    tournament.state !== tournamentState.DONE
+  "
+  class="empty-state"
+>
+  <mat-icon>list_alt</mat-icon>
+  <p>No matches yet. Start a round to generate pairings.</p>
+</div>

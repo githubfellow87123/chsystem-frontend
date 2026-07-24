@@ -86,15 +86,15 @@ export class TournamentMatchesComponent implements OnChanges {
         this.tournament = tournament;
         this.tournamentChangeEvent.emit(tournament);
       },
-      (error) => {
-        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
-          data: error,
-          panelClass: 'error-snack-bar-panel',
-          duration: 8000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-        });
-      }
+          (error) => {
+            this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+              data: error,
+              panelClass: 'error-snack-bar-panel',
+              duration: 8000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
+          }
     );
   }
 

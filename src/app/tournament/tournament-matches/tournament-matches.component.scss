@@ -1,13 +1,107 @@
-.match-input-left {
-  margin-left: 20px;
-}
-
-.match-input-right {
-  margin-right: 20px;
-}
-
 .round-actions {
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
+}
+
+.round-section {
+  margin-bottom: 32px;
+}
+
+.round-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.round-hint {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 13px;
+}
+
+.match-table-wrapper {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+}
+
+.match-table {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.match-table th,
+.match-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.match-table thead th {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.player-cell {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.player-left {
+  text-align: right;
+}
+
+.player-right {
+  text-align: left;
+}
+
+.score-cell {
+  text-align: center;
+  width: 72px;
+}
+
+.separator-cell {
+  text-align: center;
+  width: 16px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.score-input {
+  width: 56px;
+  text-align: center;
+}
+
+.score-input ::ng-deep .mat-mdc-form-field-infix {
+  text-align: center;
+}
+
+.score-input ::ng-deep input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.save-row {
+  margin-top: 16px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 16px;
+  color: rgba(0, 0, 0, 0.54);
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
 }
