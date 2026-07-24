@@ -88,7 +88,9 @@ export class TournamentMatchesComponent implements OnChanges {
       },
       (error) => {
         this.snackBar.openFromComponent(ErrorSnackBarComponent, {
-          data: error.error.message,
+          data: error,
+          panelClass: 'error-snack-bar-panel',
+          duration: 8000,
           verticalPosition: 'top',
           horizontalPosition: 'center',
         });
@@ -117,8 +119,10 @@ export class TournamentMatchesComponent implements OnChanges {
           },
           (error) => {
             this.snackBar.openFromComponent(ErrorSnackBarComponent, {
-              data: error.error.message,
-              verticalPosition: 'top',
+              data: error,
+              panelClass: 'error-snack-bar-panel',
+          duration: 8000,
+          verticalPosition: 'top',
               horizontalPosition: 'center',
             });
           }

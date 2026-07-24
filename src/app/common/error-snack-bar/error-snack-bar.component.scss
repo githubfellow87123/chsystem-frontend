@@ -1,9 +1,20 @@
+.error-snack-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
 .error-message {
-  color: red;
+  flex: 1;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+mat-icon {
+  flex-shrink: 0;
 }
 
 .mat-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  flex-shrink: 0;
 }

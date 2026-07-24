@@ -65,7 +65,9 @@ export class TournamentListComponent implements AfterViewInit {
       },
       (error) => {
         this.snackBar.openFromComponent(ErrorSnackBarComponent, {
-          data: error.error.message,
+          data: error,
+          panelClass: 'error-snack-bar-panel',
+          duration: 8000,
           verticalPosition: 'top',
           horizontalPosition: 'center',
         });
