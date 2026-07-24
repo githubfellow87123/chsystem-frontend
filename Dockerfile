@@ -16,3 +16,4 @@ RUN npm run build
 FROM nginx:1.21.5-alpine
 
 COPY --from=builder /app/dist/chsystem-frontend /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
