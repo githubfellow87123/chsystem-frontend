@@ -9,3 +9,78 @@
 .start-actions {
   margin-top: 16px;
 }
+
+.seating-wrapper {
+  margin-top: 24px;
+}
+
+.seating-circle {
+  --chip: 96px;
+  position: relative;
+  max-width: 100%;
+  margin: 24px auto;
+}
+
+.seating-table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  min-width: 120px;
+  min-height: 120px;
+  border-radius: 50%;
+  background: #eceff1;
+  border: 2px dashed #90a4ae;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #607d8b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+
+.seat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--chip);
+  height: var(--chip);
+  margin-left: calc(var(--chip) / -2);
+  margin-top: calc(var(--chip) / -2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 50%;
+  background: #3f51b5;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(calc(var(--i) * 1deg * (360 / var(--n))))
+    translateY(calc(var(--radius) * -1))
+    rotate(calc(var(--i) * -1deg * (360 / var(--n))));
+}
+
+.seat-name {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+@media (max-width: 480px) {
+  .seating-circle {
+    --chip: 80px;
+  }
+  .seat {
+    font-size: 11px;
+  }
+}

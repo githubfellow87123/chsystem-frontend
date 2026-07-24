@@ -33,6 +33,8 @@ export class TournamentPlayersComponent implements OnChanges {
   playersInTournament: Player[] = [];
   playersNotInTournament: Player[] = [];
   playersOrderedBySeatingOrder: Player[] = [];
+  seatingRadius = 170;
+  seatingSize = 0;
 
   playersNotInTournamentFormControl = new FormControl();
   filteredPlayersNotInTournamentOptions!: Observable<string[]>;
@@ -69,8 +71,20 @@ export class TournamentPlayersComponent implements OnChanges {
     ) {
       this.tournamentService
         .getSeatingOrder(this.tournament.id!)
-        .subscribe((players) => (this.playersOrderedBySeatingOrder = players));
+        .subscribe((players) => {
+          this.playersOrderedBySeatingOrder = players;
+          this.updateSeatingLayout();
+        });
     }
+  }
+
+  private updateSeatingLayout(): void {
+    const n = this.playersOrderedBySeatingOrder.length;
+    const chip = 96;
+    this.seatingSize = n;
+    // circumference must fit all chips: 2*pi*r >= n*chip
+    const minRadius = 170;
+    this.seatingRadius = Math.max(minRadius, Math.ceil((n * chip) / (2 * Math.PI)));
   }
 
   startTournament(tournamentId: string | undefined): void {

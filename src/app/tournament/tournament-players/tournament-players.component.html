@@ -67,7 +67,7 @@
       color="primary"
       (click)="startTournament(tournament.id)"
     >
-      Start Tournament
+      Determine Seating
     </button>
   </div>
 
@@ -76,12 +76,25 @@
       playersOrderedBySeatingOrder &&
       playersOrderedBySeatingOrder.length > 0
     "
+    class="seating-wrapper"
   >
     <h2>Seating Order</h2>
-    <mat-list role="list" *ngFor="let player of playersOrderedBySeatingOrder">
-      <mat-list-item role="listitem">
-        {{ player.name }}
-      </mat-list-item>
-    </mat-list>
+    <div
+      class="seating-circle"
+      [style.width.px]="seatingRadius * 2 + 96"
+      [style.height.px]="seatingRadius * 2 + 96"
+    >
+      <div class="seating-table">Table</div>
+      <div
+        *ngFor="let player of playersOrderedBySeatingOrder; let i = index"
+        class="seat"
+        [style.--i]="i"
+        [style.--n]="seatingSize"
+        [style.--radius.px]="seatingRadius"
+        [title]="'Seat ' + (i + 1)"
+      >
+        <span class="seat-name">{{ player.name }}</span>
+      </div>
+    </div>
   </div>
 </div>
