@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Player, PlayerService } from '../../player.service';
@@ -26,12 +28,16 @@ export class TournamentPlayersComponent implements OnChanges {
   @Input()
   tournament!: TournamentModel;
 
+  @Output() tournamentChangeEvent = new EventEmitter<TournamentModel>();
+
   playersInTournament: Player[] = [];
   playersNotInTournament: Player[] = [];
   playersOrderedBySeatingOrder: Player[] = [];
 
   playersNotInTournamentFormControl = new FormControl();
   filteredPlayersNotInTournamentOptions!: Observable<string[]>;
+
+  tournamentState = TournamentState;
 
   constructor(
     private tournamentService: TournamentService,
@@ -65,6 +71,23 @@ export class TournamentPlayersComponent implements OnChanges {
         .getSeatingOrder(this.tournament.id!)
         .subscribe((players) => (this.playersOrderedBySeatingOrder = players));
     }
+  }
+
+  startTournament(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
+    this.tournamentService.startTournament(tournamentId).subscribe(
+      (tournament) => {
+        this.tournament = tournament;
+        this.tournamentChangeEvent.emit(tournament);
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 
   private removePlayersFromPlayersNotInTournament(players: Player[]): void {

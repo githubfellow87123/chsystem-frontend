@@ -1,4 +1,30 @@
 <div
+  *ngIf="tournament && tournament.state !== tournamentState.DONE"
+  class="round-actions"
+>
+  <button
+    [disabled]="
+      tournament && tournament.state !== tournamentState.IN_PROGRESS
+    "
+    mat-raised-button
+    color="primary"
+    (click)="startNextRound(tournament.id)"
+  >
+    Next Round
+  </button>
+  <button
+    [disabled]="
+      tournament && tournament.state !== tournamentState.IN_PROGRESS
+    "
+    mat-raised-button
+    color="warn"
+    (click)="finishTournament(tournament.id)"
+  >
+    Finish
+  </button>
+</div>
+
+<div
   *ngIf="
     tournament &&
     tournament.roundIndex !== undefined &&

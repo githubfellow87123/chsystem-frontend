@@ -1,0 +1,14 @@
+.tournament-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.tournament-header-item {
+  font-size: 14px;
+  font-weight: 500;
+}

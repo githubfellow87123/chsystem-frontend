@@ -15,6 +15,13 @@ import {
   TournamentState,
 } from '../../tournament.service';
 import { KeyValue } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorSnackBarComponent } from '../../common/error-snack-bar/error-snack-bar.component';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData,
+} from '../../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tournament-matches',
@@ -26,13 +33,18 @@ export class TournamentMatchesComponent implements OnChanges {
   tournament!: TournamentModel;
 
   @Output() matchesChangedEvent = new EventEmitter();
+  @Output() tournamentChangeEvent = new EventEmitter<TournamentModel>();
 
   matchesCurrentRound: Match[] = [];
   matchesPreviousRounds: Map<number, Match[]> = new Map();
 
   tournamentState = TournamentState;
 
-  constructor(private tournamentService: TournamentService) {}
+  constructor(
+    private tournamentService: TournamentService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.tournament != null) {
@@ -65,6 +77,53 @@ export class TournamentMatchesComponent implements OnChanges {
     this.tournamentService
       .enterMatchResult(match.tournamentId, matchResult)
       .subscribe(() => this.matchesChangedEvent.emit());
+  }
+
+  startNextRound(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
+    this.tournamentService.startNextRound(tournamentId).subscribe(
+      (tournament) => {
+        this.tournament = tournament;
+        this.tournamentChangeEvent.emit(tournament);
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+          data: error.error.message,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
+  }
+
+  finishTournament(tournamentId: string | undefined): void {
+    if (!tournamentId) return;
+    const dialogData: ConfirmDialogData = {
+      title: 'Finish Tournament',
+      message:
+        'Do you really want to finish this tournament? This cannot be undone.',
+      confirmText: 'Finish',
+      cancelText: 'Cancel',
+    };
+    this.dialog
+      .open(ConfirmDialogComponent, { data: dialogData })
+      .afterClosed()
+      .subscribe((confirmed: boolean) => {
+        if (!confirmed) return;
+        this.tournamentService.finishTournament(tournamentId).subscribe(
+          (tournament) => {
+            this.tournament = tournament;
+            this.tournamentChangeEvent.emit(tournament);
+          },
+          (error) => {
+            this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+              data: error.error.message,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
+          }
+        );
+      });
   }
 
   private getMatchesPreviousRounds(allMatches: Match[]): Map<number, Match[]> {

@@ -1,18 +1,25 @@
-<mat-tab-group animationDuration="0ms">
-  <mat-tab label="Overview">
-    <app-tournament-overview
+<div class="tournament-header" *ngIf="tournament">
+  <span class="tournament-header-item">
+    Date: {{ tournament.date | date: "yyyy-MM-dd" }}
+  </span>
+  <span class="tournament-header-item"> State: {{ tournament.state }} </span>
+  <span class="tournament-header-item">
+    Round: {{ tournament.roundIndex }}
+  </span>
+</div>
+
+<mat-tab-group animationDuration="0ms" [(selectedIndex)]="selectedIndex">
+  <mat-tab label="Players">
+    <app-tournament-players
       [tournament]="tournament"
       (tournamentChangeEvent)="onTournamentChangedEvent($event)"
-    >
-    </app-tournament-overview>
-  </mat-tab>
-  <mat-tab label="Players">
-    <app-tournament-players [tournament]="tournament"></app-tournament-players>
+    ></app-tournament-players>
   </mat-tab>
   <mat-tab label="Matches">
     <app-tournament-matches
       [tournament]="tournament"
       (matchesChangedEvent)="onMatchesChangedEvent()"
+      (tournamentChangeEvent)="onTournamentChangedEvent($event)"
     ></app-tournament-matches>
   </mat-tab>
   <mat-tab label="Standings">

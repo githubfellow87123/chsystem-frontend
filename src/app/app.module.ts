@@ -21,12 +21,12 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { TournamentComponent } from './tournament/tournament.component';
-import { TournamentOverviewComponent } from './tournament/tournament-overview/tournament-overview.component';
 import { TournamentPlayersComponent } from './tournament/tournament-players/tournament-players.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TournamentMatchesComponent } from './tournament/tournament-matches/tournament-matches.component';
 import { TournamentStandingsComponent } from './tournament/tournament-standings/tournament-standings.component';
 import { ErrorSnackBarComponent } from './common/error-snack-bar/error-snack-bar.component';
+import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,11 +35,11 @@ import { ErrorSnackBarComponent } from './common/error-snack-bar/error-snack-bar
     TournamentListComponent,
     HomeComponent,
     TournamentComponent,
-    TournamentOverviewComponent,
     TournamentPlayersComponent,
     TournamentMatchesComponent,
     TournamentStandingsComponent,
     ErrorSnackBarComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

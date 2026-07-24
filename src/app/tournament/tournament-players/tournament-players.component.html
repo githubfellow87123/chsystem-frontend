@@ -58,6 +58,21 @@
 
   <div
     *ngIf="
+      tournament && tournament.state === tournamentState.INITIALIZING
+    "
+    class="start-actions"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="startTournament(tournament.id)"
+    >
+      Start Tournament
+    </button>
+  </div>
+
+  <div
+    *ngIf="
       playersOrderedBySeatingOrder &&
       playersOrderedBySeatingOrder.length > 0
     "
